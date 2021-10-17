@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class MainController extends AbstractController
 {
@@ -11,6 +12,13 @@ class MainController extends AbstractController
     {
         dump('here');
         die;
+
+    }
+
+    public function orderPlacement(Request $request)
+    {
+
+
 
     }
 
