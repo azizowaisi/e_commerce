@@ -1,0 +1,43 @@
+App\Entity\Customer:
+  type: entity
+  table: Customer
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    customerKey:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: customer_key
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+      nullable: false
+      column: updated_at
+    name:
+      type: string
+      length: 255
+      nullable: true
+      column: name
+      unique: true
+    email:
+      type: string
+      length: 255
+      nullable: true
+      column: email
+      unique: true

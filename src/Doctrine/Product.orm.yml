@@ -1,0 +1,28 @@
+App\Entity\Product:
+  type: entity
+  table: Product
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    productKey:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: product_key
+    name:
+      type: string
+      length: 255
+      nullable: true
+      column: name
+      unique: true
+    price:
+      type: string
+      length: 255
+      nullable: true
+      column: price

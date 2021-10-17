@@ -1,0 +1,49 @@
+App\Entity\CustomerAddress:
+  type: entity
+  table: CustomerAddress
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    customerAddressKey:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: customer_address_key
+    name:
+      type: string
+      length: 255
+      nullable: true
+      column: name
+    country:
+      type: string
+      length: 20
+      nullable: true
+      column: country
+    postCode:
+      type: string
+      length: 50
+      nullable: true
+      column: post_code
+    city:
+      type: string
+      length: 50
+      nullable: true
+      column: city
+    street:
+      type: string
+      length: 255
+      nullable: true
+      column: street
+  manyToOne:
+    customer:
+      targetEntity: Customer
+      JoinColumn:
+        name: customer_id
+        referencedColumnName: id
+

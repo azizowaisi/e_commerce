@@ -1,0 +1,47 @@
+App\Entity\Order:
+  type: entity
+  table: Order
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    orderKey:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: order_key
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+      nullable: false
+      column: updated_at
+    amount:
+      type: string
+      length: 255
+      nullable: true
+      column: amount
+  manyToOne:
+    customer:
+      targetEntity: Customer
+      JoinColumn:
+        name: customer_id
+        referencedColumnName: id
+    paymentMethod:
+      targetEntity: PaymentMethod
+      JoinColumn:
+        name: payment_id
+        referencedColumnName: id

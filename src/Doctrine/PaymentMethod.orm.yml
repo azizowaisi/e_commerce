@@ -1,0 +1,48 @@
+App\Entity\PaymentMethod:
+  type: entity
+  table: PaymentMethod
+  fields:
+    id:
+      id: true
+      type: integer
+      unsigned: false
+      nullable: false
+      generator:
+        strategy: IDENTITY
+    paymentKey:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: payment_key
+    createdAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: create
+      nullable: false
+      column: created_at
+    updatedAt:
+      type: datetime
+      gedmo:
+        timestampable:
+          on: update
+      nullable: false
+      column: updated_at
+    method:
+      type: string
+      length: 255
+      nullable: true
+      column: method
+    authorizedId:
+      type: string
+      length: 20
+      nullable: true
+      column: authorized_id
+  manyToOne:
+    customer:
+      targetEntity: Customer
+      JoinColumn:
+        name: customer_id
+        referencedColumnName: id
+
