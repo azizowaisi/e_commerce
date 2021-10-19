@@ -17,6 +17,9 @@ class CustomerOrderRepository extends ServiceEntityRepository
 
     public function getOrder(Customer $customer, PaymentMethod $paymentMethod)
     {
+        $currentTime = new \DateTime("now");
+        $currentTime->sub(new \DateInterval('PT3M'));
+
         $qb = $this->createQueryBuilder("customer_order");
 
         $qb->andWhere("customer_order.customer = :customer");
@@ -24,6 +27,9 @@ class CustomerOrderRepository extends ServiceEntityRepository
 
         $qb->andWhere("customer_order.paymentMethod = :payment");
         $qb->setParameter("payment", $paymentMethod);
+
+        $qb->andWhere("customer_order.createdAt >= :createdAt");
+        $qb->setParameter("createdAt", $currentTime);
 
 
         $qb->setFirstResult(0);

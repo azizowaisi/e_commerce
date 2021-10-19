@@ -49,13 +49,11 @@ class OrderHelper
 
     public function placeOrder(Customer $customer, PaymentMethod $paymentMethod, array $jsonData)
     {
-        $customerOrder = $this->orderAlreadyExists($customer, $paymentMethod, $jsonData);
-        dump($customerOrder);
-        die;
-
         $customerOrder = $this->customerOrderRepository->getOrder($customer, $paymentMethod);
         if ($customerOrder instanceof CustomerOrder) {
-            return false;
+            if ($this->hasSameProductsOrdered($customerOrder, $jsonData)) {
+                return false;
+            }
         }
 
         $customerOrder = new CustomerOrder();
@@ -93,7 +91,7 @@ class OrderHelper
         }
     }
 
-    public function createOrderDetails(CustomerOrder $order, $product)
+    public function createOrderDetails(CustomerOrder $order, array $product)
     {
         if (!array_key_exists("sku", $product)) {
             return null;
@@ -116,59 +114,36 @@ class OrderHelper
         $this->entityManager->flush();
     }
 
-    public function orderAlreadyExists(Customer $customer, PaymentMethod $paymentMethod, array $jsonData)
+    public function hasSameProductsOrdered(CustomerOrder $customerOrder, array $jsonData)
     {
+        $hasSameProducts = true;
 
         $products = $jsonData['products'];
-
-        $repository = $this->entityManager->getRepository("App:CustomerOrder");
-        $qb = $repository->createQueryBuilder("customerOrder");
-
-        $qb->join("customerOrder.products", "product");
-
-        $qb->andWhere("customerOrder.customer = :customer");
-        $qb->setParameter("customer", $customer);
-
-        $qb->andWhere("customerOrder.paymentMethod = :payment");
-        $qb->setParameter("payment", $paymentMethod);
-
-
-        $orx = $qb->expr()->orX();
         foreach ($products as $product) {
+
             if (empty($product)) {
                 continue;
             }
 
             if (!array_key_exists("sku", $product)) {
-                return null;
+                continue;
             }
 
             $productName = $product['sku'];
 
             if (!array_key_exists("qty", $product)) {
-                return null;
+                continue;
             }
 
             $quantity = $product['qty'];
 
-
-            $orx->add($qb->expr()->eq("product.productName", "'".$productName."'"));
-            $orx->add($qb->expr()->eq("product.quantity", $quantity));
+            $orderProductDetail = $this->orderProductDetailRepository->getCustomerOrderByNameAndQuantity($customerOrder, $productName, $quantity);
+            if (!$orderProductDetail instanceof OrderProductDetail) {
+                $hasSameProducts = false;
+            }
         }
 
-        $qb->andWhere($orx);
-
-        $qb->setFirstResult(0);
-        $qb->setMaxResults(1);
-
-        $query = $qb->getQuery();
-
-
-
-
-        return $query->getOneOrNullResult();
-
-
+        return $hasSameProducts;
     }
 
 }

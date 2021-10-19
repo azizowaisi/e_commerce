@@ -40,12 +40,10 @@ class MainController extends AbstractController
             return new Response("Invalid JSON", "400");
         }
 
-        $response = $orderHelper->handleOrder($jsonData);
-
-        //try to load JSON
+        //try to read JSON
         try {
 
-
+            $response = $orderHelper->handleOrder($jsonData);
             if(!$response){
                 return new Response("Order already exists", "201");
             }

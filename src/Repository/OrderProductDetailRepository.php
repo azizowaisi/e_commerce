@@ -25,4 +25,22 @@ class OrderProductDetailRepository extends ServiceEntityRepository
 
         return $query->getResult();
     }
+
+    public function getCustomerOrderByNameAndQuantity(CustomerOrder $order, string $name, string $quantity)
+    {
+        $qb = $this->createQueryBuilder("order_product_detail");
+
+        $qb->andWhere("order_product_detail.order = :order");
+        $qb->setParameter("order", $order);
+
+        $qb->andWhere("order_product_detail.productName = :name");
+        $qb->setParameter("name", $name);
+
+        $qb->andWhere("order_product_detail.quantity = :quantity");
+        $qb->setParameter("quantity", $quantity);
+
+        $query = $qb->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
 }

@@ -79,9 +79,9 @@ class CustomerOrder
     }
 
     /**
-     * @return ArrayCollection
+     * @return mixed
      */
-    public function getProducts(): ArrayCollection
+    public function getProducts()
     {
         return $this->products;
     }
