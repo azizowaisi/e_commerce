@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends AbstractController
 {
+
     public function index(Request $request, OrderHelper $orderHelper)
     {
         if ($request->getMethod() != "POST") {
