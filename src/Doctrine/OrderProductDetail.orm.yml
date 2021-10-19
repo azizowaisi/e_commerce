@@ -9,19 +9,19 @@ App\Entity\OrderProductDetail:
       nullable: false
       generator:
         strategy: IDENTITY
+    productName:
+      type: string
+      length: 100
+      nullable: true
+      column: product_name
     quantity:
       type: string
       length: 100
       nullable: true
       column: quantity
   manyToOne:
-    product:
-      targetEntity: Product
-      JoinColumn:
-        name: product_id
-        referencedColumnName: id
     order:
-      targetEntity: Order
+      targetEntity: App\Entity\CustomerOrder
       JoinColumn:
         name: order_id
         referencedColumnName: id

@@ -1,6 +1,6 @@
-App\Entity\Order:
+App\Entity\CustomerOrder:
   type: entity
-  table: Order
+  table: CustomerOrder
   fields:
     id:
       id: true
@@ -9,12 +9,6 @@ App\Entity\Order:
       nullable: false
       generator:
         strategy: IDENTITY
-    orderKey:
-      type: string
-      length: 255
-      fixed: false
-      nullable: false
-      column: order_key
     createdAt:
       type: datetime
       gedmo:
@@ -22,26 +16,19 @@ App\Entity\Order:
           on: create
       nullable: false
       column: created_at
-    updatedAt:
-      type: datetime
-      gedmo:
-        timestampable:
-          on: update
-      nullable: false
-      column: updated_at
-    amount:
-      type: string
-      length: 255
-      nullable: true
-      column: amount
   manyToOne:
     customer:
-      targetEntity: Customer
+      targetEntity: App\Entity\Customer
       JoinColumn:
         name: customer_id
         referencedColumnName: id
     paymentMethod:
-      targetEntity: PaymentMethod
+      targetEntity: App\Entity\PaymentMethod
       JoinColumn:
-        name: payment_id
+        name: payment_method_id
         referencedColumnName: id
+  oneToMany:
+    products:
+      targetEntity: App\Entity\OrderProductDetail
+      cascade: [ "remove", "persist" ]
+      mappedBy: order

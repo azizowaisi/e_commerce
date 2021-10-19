@@ -6,9 +6,9 @@ class OrderProductDetail
 {
     private $id;
     private $quantity;
+    private $productName;
 
     //FK
-    private $product;
     private $order;
 
     /**
@@ -36,22 +36,6 @@ class OrderProductDetail
     }
 
     /**
-     * @return Product
-     */
-    public function getProduct()
-    {
-        return $this->product;
-    }
-
-    /**
-     * @param mixed $product
-     */
-    public function setProduct($product): void
-    {
-        $this->product = $product;
-    }
-
-    /**
      * @return Order
      */
     public function getOrder()
@@ -65,5 +49,21 @@ class OrderProductDetail
     public function setOrder($order): void
     {
         $this->order = $order;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProductName()
+    {
+        return $this->productName;
+    }
+
+    /**
+     * @param mixed $productName
+     */
+    public function setProductName($productName): void
+    {
+        $this->productName = $productName;
     }
 }

@@ -15,6 +15,12 @@ App\Entity\CustomerAddress:
       fixed: false
       nullable: false
       column: customer_address_key
+    type:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: type
     name:
       type: string
       length: 255

@@ -36,12 +36,12 @@ App\Entity\PaymentMethod:
       column: method
     authorizedId:
       type: string
-      length: 20
+      length: 255
       nullable: true
       column: authorized_id
   manyToOne:
     customer:
-      targetEntity: Customer
+      targetEntity: App\Entity\Customer
       JoinColumn:
         name: customer_id
         referencedColumnName: id
