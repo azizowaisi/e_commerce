@@ -5,8 +5,10 @@ Yaml files for doctrine but I can work on annotations.
 Entities;
 1. Customer
 2. CustomerAddress
-3. Order
+3. CustomerOrder
 4. OrderProductDetail
 5. PaymentMethod
-6. Product
 
+
+I have used key for API url. 
+I used customer key to get current order and its status. It up to us if you want to see it orderwise or userwise.
