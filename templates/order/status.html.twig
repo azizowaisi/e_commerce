@@ -8,9 +8,15 @@
             <header class="card-header"> My Orders / Tracking </header>
             <div class="card-body">
                 <h6>Order ID: {{ customerOrder.orderKey }}</h6>
+                <p>Address :
+                    <br><strong>C/o</strong> : {{ shippingAddress.name }}
+                    <br><strong>Street</strong> : {{ shippingAddress.street }}
+                    <br><strong>Postal code</strong> : {{ shippingAddress.postCode }}
+                    <br><strong>City</strong> : {{ shippingAddress.city }}
+                </p>
                 <article class="card">
                     <div class="card-body row">
-                        <div class="col"> <strong>Estimated Delivery time:</strong> <br>29 nov 2019 </div>
+                        <div class="col"> <strong>Estimated Delivery time:</strong> <br>29 nov 2021 </div>
                         <div class="col"> <strong>Shipping BY:</strong> <br> BLUEDART, | <i class="fa fa-phone"></i> +1598675986 </div>
                         <div class="col"> <strong>Status:</strong> <br> Picked by the courier </div>
                         <div class="col"> <strong>Tracking #:</strong> <br> BD{{ customerOrder.orderKey}} </div>

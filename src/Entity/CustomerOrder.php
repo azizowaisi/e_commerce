@@ -13,7 +13,7 @@ class CustomerOrder
     private $paymentMethod;
 
     private $products;
-    
+
     public function __construct()
     {
         $this->orderKey = uniqid();

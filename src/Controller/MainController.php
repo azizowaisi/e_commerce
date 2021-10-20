@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Helper\CustomerHelper;
 use App\Helper\OrderHelper;
 use App\Helper\UtilHelper;
+use App\Repository\CustomerAddressRepository;
 use App\Repository\CustomerOrderRepository;
 use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -64,17 +66,20 @@ class MainController extends AbstractController
 
     }
 
-    public function orderStatus(Request $request, CustomerRepository $customerRepository, CustomerOrderRepository $customerOrderRepository)
+    public function orderStatus(Request $request, CustomerRepository $customerRepository, CustomerOrderRepository $customerOrderRepository, CustomerAddressRepository $customerAddressRepository)
     {
         $customerKey = $request->get("customerKey");
         $customer = $customerRepository->getCustomerByKey($customerKey);
+        $shippingAddress = $customerAddressRepository->getCustomerAddressByType($customer, CustomerHelper::ADDRESS_TYPE_SHIPPING);
 
         $customerOrder = $customerOrderRepository->getLatestOrder($customer);
 
 
+
         return $this->render("order/status.html.twig", array(
             "customer" => $customer,
-            "customerOrder" => $customerOrder
+            "customerOrder" => $customerOrder,
+            "shippingAddress" => $shippingAddress
         ));
     }
 
