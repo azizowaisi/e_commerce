@@ -1,7 +1,11 @@
-website_home:
+ecomerce_home:
   path: /
   controller: App\Controller\MainController::index
 
-website_second:
-  path: /second
-  controller: App\Controller\MainController::second
+ecomerce_order_api:
+  path: /api/order/request
+  controller: App\Controller\MainController::orderRequest
+
+ecommerce_order_status:
+  path: /order/status
+  controller: App\Controller\MainController::orderStatus

@@ -28,4 +28,19 @@ class CustomerRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function getCustomerByKey(string $customerKey)
+    {
+        $qb = $this->createQueryBuilder("customer");
+
+        $qb->andWhere("customer.customerKey = :cusotmerKey");
+        $qb->setParameter("cusotmerKey", $customerKey);
+
+        $qb->setFirstResult(0);
+        $qb->setMaxResults(1);
+
+        $query = $qb->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
 }

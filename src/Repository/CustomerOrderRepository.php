@@ -40,4 +40,21 @@ class CustomerOrderRepository extends ServiceEntityRepository
         return $query->getOneOrNullResult();
     }
 
+    public function getLatestOrder(Customer $customer)
+    {
+        $qb = $this->createQueryBuilder("customer_order");
+
+        $qb->andWhere("customer_order.customer = :customer");
+        $qb->setParameter("customer", $customer);
+
+
+        $qb->orderBy("customer_order.createdAt", "DESC");
+        $qb->setFirstResult(0);
+        $qb->setMaxResults(1);
+
+        $query = $qb->getQuery();
+
+        return $query->getOneOrNullResult();
+    }
+
 }

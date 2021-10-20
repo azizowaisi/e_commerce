@@ -7,18 +7,25 @@ use Doctrine\Common\Collections\ArrayCollection;
 class CustomerOrder
 {
     private $id;
+    private $orderKey;
     private $createdAt;
     private $customer;
     private $paymentMethod;
 
     private $products;
-
-    /**
-     * @param $products
-     */
+    
     public function __construct()
     {
+        $this->orderKey = uniqid();
         $this->products = new ArrayCollection();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getOrderKey()
+    {
+        return $this->orderKey;
     }
 
 

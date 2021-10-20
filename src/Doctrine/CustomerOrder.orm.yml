@@ -9,6 +9,12 @@ App\Entity\CustomerOrder:
       nullable: false
       generator:
         strategy: IDENTITY
+    orderKey:
+      type: string
+      length: 255
+      fixed: false
+      nullable: false
+      column: order_key
     createdAt:
       type: datetime
       gedmo:

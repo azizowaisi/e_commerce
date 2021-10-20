@@ -4,14 +4,21 @@ namespace App\Controller;
 
 use App\Helper\OrderHelper;
 use App\Helper\UtilHelper;
+use App\Repository\CustomerOrderRepository;
+use App\Repository\CustomerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class MainController extends AbstractController
 {
+    public function index()
+    {
+        return $this->render("home/page.html.twig");
 
-    public function index(Request $request, OrderHelper $orderHelper)
+    }
+
+    public function orderRequest(Request $request, OrderHelper $orderHelper)
     {
         if ($request->getMethod() != "POST") {
             return new Response("Method not allowed", "406");
@@ -57,10 +64,18 @@ class MainController extends AbstractController
 
     }
 
-    public function second()
+    public function orderStatus(Request $request, CustomerRepository $customerRepository, CustomerOrderRepository $customerOrderRepository)
     {
-        dump("second");
-        die;
+        $customerKey = $request->get("customerKey");
+        $customer = $customerRepository->getCustomerByKey($customerKey);
+
+        $customerOrder = $customerOrderRepository->getLatestOrder($customer);
+
+
+        return $this->render("order/status.html.twig", array(
+            "customer" => $customer,
+            "customerOrder" => $customerOrder
+        ));
     }
 
 }
