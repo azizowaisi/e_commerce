@@ -5,11 +5,11 @@ Symfony 5.3
 PHP 7.2
 MySQL
 
-(1) I have chosen Symfony 5.3 because this is the latest version of Symfony. But I have experience with Symfony all versions after v2.8.
-(2) I have used SQL for databases. For Doctrine I used Yaml instead of annotations. But I can work with both Yaml and annotations. 
-(3) Routing, I used Yaml as well. 
+I have chosen Symfony 5.3 because this is the latest version of Symfony. But I have experience with Symfony all versions after v2.8.
+I have used MySQL for databases. For Doctrine I used Yaml instead of annotations. But I can work with both Yaml and annotations. 
+Routing, I used Yaml as well. 
 
-**Entities;**
+**Entities:**
 1. Customer
 2. CustomerAddress
 3. CustomerOrder
